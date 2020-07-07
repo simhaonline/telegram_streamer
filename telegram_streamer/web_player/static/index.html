@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player</title>
+    <!-- Place before </body> tag -->
+    <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+</head>
+
+<body>
+
+
+    <video id="example-player">
+        <source src="http://telegramfiles.com/7307814/1080p%20BluRay%202006%20%D7%A0.%D7%9E%20%D7%9E%D7%A4%D7%9C%D7%A6%D7%AA%20%D7%A9%D7%9C%20%D7%91%D7%99%D7%AA%20%D7%9E%D7%93%D7%95%D7%91%D7%91.mkv" type="video/mp4"/>
+    </video>
+
+    <script>
+    // fluidPlayer method is global when CDN distribution is used.
+    var player = fluidPlayer('example-player');
+    </script>
+</body>
+</html>
