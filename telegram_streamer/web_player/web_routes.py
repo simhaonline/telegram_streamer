@@ -4,6 +4,10 @@ import logging
 
 from telethon.tl.custom import Message
 from aiohttp import web
+from config import public_url
+
+import jinja2
+import aiohttp_jinja2
 
 from util import unpack_id, get_file_name, get_requester_ip
 from config import request_limit
@@ -36,16 +40,45 @@ def decrement_counter(ip: str) -> None:
     ongoing_requests[ip] -= 1
 
 
-async def handle_request(req: web.Request, head: bool = False) -> web.Response:
+async def handle_request1(req: web.Request, head: bool = False) -> web.Response:
     file_name = req.match_info["name"]
     file_id = int(req.match_info["id"])
+    print(f"file id: {file_id}, filename: {file_name}")
+    video_url = str(public_url) + "/" + str(file_id) + "/" + file_name.replace(".html", "")
+    print("video_url:", video_url)
+    context = {
+    'video_url': video_url
+    }
+    response = aiohttp_jinja2.render_template("index.html", req,
+                                        context=context)
+
+    return response
+
+
+
+async def handle_request(req: web.Request, head: bool = False) -> web.Response:
+    if str(req.url).endswith("html"):
+        return await handle_request1(req, head=False)
+
+    file_name = req.match_info["name"]
+    file_id = int(req.match_info["id"])
+    print(f"file id: {file_id}, filename: {file_name}")
+    video_url = str(public_url) + "/" + str(file_id) + "/" + file_name
+    print("video_url:", video_url)
+    context = {
+        'video_url': video_url
+    }
+
+
+
     peer, msg_id = unpack_id(file_id)
     if not peer or not msg_id:
-        return web.Response(status=404, text="404: Not Found")
+        return web.Response(status=404, text="404: Not Found, peer / msg_id not found")
 
     message = cast(Message, await client.get_messages(entity=peer, ids=msg_id))
+    print(f"filename: {file_name}, getfilename: {get_file_name(message)}")
     if not message or not message.file or get_file_name(message) != file_name:
-        return web.Response(status=404, text="404: Not Found")
+        return web.Response(status=404, text="404: Not Found, not message / message file")
 
     size = message.file.size
     offset = req.http_range.start or 0
@@ -59,6 +92,9 @@ async def handle_request(req: web.Request, head: bool = False) -> web.Response:
         body = transfer.download(message.media, file_size=size, offset=offset, limit=limit)
     else:
         body = None
+
+    
+
     return web.Response(status=206 if offset else 200,
                         body=body,
                         headers={
@@ -68,3 +104,6 @@ async def handle_request(req: web.Request, head: bool = False) -> web.Response:
                             "Content-Disposition": f'attachment; filename="{file_name}"',
                             "Accept-Ranges": "bytes",
                         })
+
+
+

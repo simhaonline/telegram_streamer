@@ -1,8 +1,10 @@
 import asyncio
 import sys
-
+import os
 from aiohttp import web
 from telethon import functions
+import jinja2
+import aiohttp_jinja2
 
 from telegram import client, transfer
 from web_player.web_routes import routes
@@ -10,6 +12,12 @@ from config import host, port, public_url, tg_bot_token
 from log import log
 
 server = web.Application()
+
+aiohttp_jinja2.setup(
+    server, loader=jinja2.FileSystemLoader(os.path.join(os.getcwd(), "web_player/templates"))
+)
+
+
 server.add_routes(routes)
 runner = web.AppRunner(server)
 
