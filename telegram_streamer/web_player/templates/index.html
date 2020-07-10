@@ -6,18 +6,20 @@
     <title>Player</title>
     <!-- Place before </body> tag -->
     <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
+    <a class="github-fork-ribbon" href="https://github.com/thewh1teagle/telegram_streamer" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 
     <video allowfullscreen id="example-player">
         <source src="{{ video_url}}" type="video/mp4"/>
     </video>
 
     <script>
-    // fluidPlayer method is global when CDN distribution is used.
-    var player = fluidPlayer('example-player');
+        // fluidPlayer method is global when CDN distribution is used.
+        var player = fluidPlayer('example-player');
     </script>
 </body>
 </html>
