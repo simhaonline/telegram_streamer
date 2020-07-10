@@ -43,11 +43,13 @@ def decrement_counter(ip: str) -> None:
 async def handle_request1(req: web.Request, head: bool = False) -> web.Response:
     file_name = req.match_info["name"]
     file_id = int(req.match_info["id"])
-    print(f"file id: {file_id}, filename: {file_name}")
     video_url = str(public_url) + "/" + str(file_id) + "/" + file_name.replace(".html", "")
-    print("video_url:", video_url)
+    
+    video_name = file_name.split(".")[0].replace("נתי מדיה", "") # remove all the text after dot
+
     context = {
-    'video_url': video_url
+        'video_url': video_url,
+        'video_name': video_name
     }
     response = aiohttp_jinja2.render_template("index.html", req,
                                         context=context)
@@ -65,9 +67,11 @@ async def handle_request(req: web.Request, head: bool = False) -> web.Response:
     print(f"file id: {file_id}, filename: {file_name}")
     video_url = str(public_url) + "/" + str(file_id) + "/" + file_name
     print("video_url:", video_url)
-    context = {
-        'video_url': video_url
-    }
+
+    video_name = file_name
+    print(f"video_name: {video_name}")
+
+   
 
 
 
