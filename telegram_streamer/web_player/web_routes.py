@@ -18,6 +18,11 @@ routes = web.RouteTableDef()
 ongoing_requests: Dict[str, int] = defaultdict(lambda: 0)
 
 
+
+@routes.get("/favicon.ico")
+async def favicon(request):
+    return web.FileResponse("static/favicon.ico")
+
 @routes.head(r"/{id:\d+}/{name}")
 async def handle_head_request(req: web.Request) -> web.Response:
     return await handle_request(req, head=True)
