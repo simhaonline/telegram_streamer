@@ -22,6 +22,11 @@ server.router.add_static('/static/',
     name='static'
 )
 
+server.router.add_static('/data/',
+    path=str(project_root + "/" + 'data'),
+    name='data'
+)
+
 aiohttp_jinja2.setup(
     server, loader=jinja2.FileSystemLoader(os.path.join(os.getcwd(), "web_player/templates"))
 )

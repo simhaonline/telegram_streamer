@@ -19,6 +19,12 @@ ongoing_requests: Dict[str, int] = defaultdict(lambda: 0)
 
 
 
+@routes.get("/")
+async def site(req):
+    response = aiohttp_jinja2.render_template("site.html", req, context={})
+    return response
+
+
 @routes.get("/favicon.ico")
 async def favicon(request):
     return web.FileResponse("static/favicon.ico")
