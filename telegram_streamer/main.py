@@ -11,7 +11,16 @@ from web_player.web_routes import routes
 from config import host, port, public_url, tg_bot_token
 from log import log
 
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+
+
 server = web.Application()
+
+server.router.add_static('/static/',
+    path=str(project_root + "/" + 'static'),
+    name='static'
+)
 
 aiohttp_jinja2.setup(
     server, loader=jinja2.FileSystemLoader(os.path.join(os.getcwd(), "web_player/templates"))

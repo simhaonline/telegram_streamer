@@ -1,0 +1,62 @@
+* {
+/* border: 1px solid red; */
+}
+
+body {
+background: rgb(238,174,202);
+background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(35,94,158,1) 21%, rgba(0,0,0,1) 100%);
+}
+
+#example-player {
+
+}
+
+#title {
+text-align: center;
+font-size: 72px;
+background: -webkit-linear-gradient(#eee, #333);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+opacity: 0.99;
+}
+
+.video-container {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 50%;
+width: 50%;
+margin: auto;
+}
+
+
+#example-player {
+border-radius: 5px;   
+}
+
+#video-name {
+text-align: center;
+}
+
+#video-name {
+font-size: 30px;
+background: -webkit-linear-gradient(#8a8a8a, #ffffff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-shadow: aqua;
+font-weight: 10;
+opacity: 1;
+}
+
+
+/* If screen size is 600px wide, or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 800px) {
+.video-container {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 90%;
+width: 80%;
+margin: auto;
+}
+}
