@@ -13,7 +13,3 @@ var player = fluidPlayer(
         }
     }
 );
-
-setTimeout(function() {
-    document.getElementById('fluid_video_wrapper_example-player').focus()
-}, 3000)

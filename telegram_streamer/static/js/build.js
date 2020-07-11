@@ -73,7 +73,9 @@ function show(id){
     let video = app.mk('video');
     video.setAttribute('id','vid_play');
     video.setAttribute('controls','1');
-    video.setAttribute('src',json[id].src);
+
+    video_src = "/" + json[id].file_id + "/" + json[id].file_name
+    video.setAttribute('src',video_src);
 
     app.add(modal);
     app.add(trailer,details);
